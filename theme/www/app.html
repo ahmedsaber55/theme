@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html data-theme-mode="{{ desk_theme.lower() }}" data-theme="{{ desk_theme.lower() }}" dir={{ layout_direction }}
+	lang="{{ lang }}"  dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+	<script>
+        function changeLanguage(event) {
+            // Prevent default anchor behavior
+            event.preventDefault();
+
+            // Get the current direction of the page
+            const pageDirection = document.documentElement.getAttribute('dir');
+
+            // Get the button element
+            const button = document.getElementById('languageSwitch');
+
+            // Update the button text based on the page direction
+            if (pageDirection === 'rtl') {
+                button.innerHTML = 'EN'; // Change text to English when RTL
+            } else {
+                button.innerHTML = 'عربي'; // Change text back to Arabic when LTR
+            }
+
+            // Toggle the page direction
+            document.documentElement.setAttribute('dir', pageDirection === 'rtl' ? 'ltr' : 'rtl');
+            // Update the language attribute accordingly
+            document.documentElement.setAttribute('lang', pageDirection === 'rtl' ? 'en' : 'ar');
+        }
+
+        // Function to initialize button text based on the current page direction
+        function initializeButtonText() {
+            const pageDirection = document.documentElement.getAttribute('dir');
+            const button = document.getElementById('languageSwitch');
+            button.innerHTML = pageDirection === 'rtl' ? 'EN' : 'عربي';
+        }
+
+        // Initialize the button text on page load
+        window.onload = initializeButtonText;
+    </script>
+
+
+
+<head>
+	<!-- Chrome, Firefox OS and Opera -->
+	<meta name="theme-color" content="#0089FF">
+	<!-- Windows Phone -->
+	<meta name="msapplication-navbutton-color" content="#0089FF">
+	<!-- iOS Safari -->
+	<meta name="apple-mobile-web-app-status-bar-style" content="#0089FF">
+	<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+	<meta content="utf-8" http-equiv="encoding">
+	<meta name="author" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0,
+			maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, minimal-ui">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="white">
+	<meta name="mobile-web-app-capable" content="yes">
+	<title>ITQAN</title>
+	<link rel="shortcut icon" href="{{ favicon or " /assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+	<link rel="icon" href="{{ favicon or " /assets/frappe/images/frappe-favicon.svg" }}" type="image/x-icon">
+	{% for include in include_css -%}
+	{{ include_style(include) }}
+	{%- endfor -%}
+
+	<link rel="stylesheet/less" href="/assets/theme/css/new-style.scss" type="MIME">
+	<!-- <link type="text/css" rel="stylesheet" href="/assets/theme/css/style.css">
+	<link type="text/css" rel="stylesheet" href="/assets/theme/css/new-style.css"> -->
+</head>
+<!--  qboat admin -->
+<body class="" data-qboat="theme-AppleGreen" data-sidebartype="full" >
+	
+
+	<div class="preloader">
+		<img src="http://localhost/assets/theme/images/mini-logo.png" class="mylogo" width="80px" />
+	</div>
+	<div id="main-wrapper">
+		<aside class="left-sidebar with-vertical hide">
+			<div class="brand-logo d-flex gap-3 align-items-center justify-content-between">
+				<a href="/app/executive-dashboards" class="text-nowrap logo-img">
+				  <img src="/assets/theme/img/sindh-gov-logo.png" class="dark-logo" alt="Logo-Dark" /> 
+				</a> 
+					<a href='/app/configuration-screens' class="m-0 toggler text-decoration-none">Directorate General of <b>Monitoring and Evaluation</b></a>  
+				<a href="javascript:void(0)" onclick="sidebartoggler()" class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
+				  <i class="ti ti-x"></i>
+				</a>
+			</div>
+			<div class="scroll-sidebar" data-simplebar>
+				<!-- Sidebar navigation-->
+				<nav class="sidebar-nav sidebarnav">
+					<div class="sidebar">
+						<div class="container-fluid">
+							<!--[ sidebar:: menu list ]-->
+							<div class="flex-grow-1"> 
+								<!--  mt-3 rounded-4 -->
+								<ul class="menu-list  layout-side-section-menu" id="accordionmainmenu">
+								 
+				
+								</ul>
+				
+							</div> 
+						</div>
+					</div>
+				</nav>
+				<!-- End Sidebar navigation -->
+			</div>
+			<div class=" fixed-profile m-3 mb-4 mt-0">
+				<div class="card bg-primary-subtle mb-0 shadow-none">
+				  <div class="card-body">
+					<div class="d-flex align-items-center justify-content-between gap-2">
+					  <div class="d-flex align-items-center gap-2" >
+						<span id="userimageavatar"></span> 
+						<div>
+						  <h5 class="mb-1" id="userfullnamesession">Mike</h5>
+						  <p class="mb-0" id="usertypesession">-</p>
+						</div>
+					  </div>
+					  <a href="/login" onclick="return frappe.app.logout()" class="position-relative" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="Logout">
+						<iconify-icon icon="solar:logout-line-duotone" class="fs-8"></iconify-icon>
+					  </a>
+					 
+					</div>
+				  </div>
+				</div>
+			</div>
+		</aside>
+		{% include "templates/includes/sidebar.html" %}
+		<div class="page-wrapper">
+			<div class="body-wrapper">
+				<div class="container-fluid">
+					<header class="page-header sticky-top pt-3 topbar sticky-top"></header>
+					<div class="main-section page order-2 flex-grow-1">
+		
+						<div id="body"></div>
+				
+						<footer></footer>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	
+	
+
+	
+	<div id="build-events-overlay"></div>
+ 
+	<div class="offcanvas sm offcanvas-end" tabindex="-1" id="settings">
+		<div class="offcanvas-header">
+			<h5 class="offcanvas-title">Admin Setting</h5>
+			<button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+		</div>
+		<div class="offcanvas-body custom_scroll">
+			<ul class="row g-2 list-unstyled li_animate">
+				<li class="col-12 text-uppercase text-muted">
+					<div class="d-flex justify-content-between small">
+						<span>Color Scheme</span>
+					</div>
+				</li>
+				<li class="col-12">
+					<ul class="choose-skin list-group list-group-custom mb-0">
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="AppleGreen">
+							<span>Apple Green</span>
+							<div style="background-color: #5BC43A;">Primary</div>
+							<div style="background-color: #00668b;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="DaisyBush">
+							<span>Daisy Bush</span>
+							<div style="background-color: #541690;">Primary</div>
+							<div style="background-color: #FF8D29;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="DodgerBlue">
+							<span>Dodger Blue</span>
+							<div style="background-color: #287eff;">Primary</div>
+							<div style="background-color: #03C4A1;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="WebOrange">
+							<span>Web Orange</span>
+							<div style="background-color: #F0A500;">Primary</div>
+							<div style="background-color: #334756;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="TorchRed">
+							<span>Torch Red</span>
+							<div style="background-color: #FF0F5B;">Primary</div>
+							<div style="background-color: #7160cb;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="Tradewind">
+							<span>Tradewind</span>
+							<div style="background-color: #65baa9;">Primary</div>
+							<div style="background-color: #7a6697;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="FrenchRose">
+							<span>French Rose</span>
+							<div style="background-color: #EB5393;">Primary</div>
+							<div style="background-color: #36AE7C;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="Jasper">
+							<span>Jasper Red</span>
+							<div style="background-color: #c94e4e;">Primary</div>
+							<div style="background-color: #713045;">Accent</div>
+						</li>
+						<li class="list-group-item d-flex justify-content-between align-items-center"
+							data-theme="Midnight">
+							<span>Midnight</span>
+							<div style="background-color: #001429;">Primary</div>
+							<div style="background-color: #52616B;">Accent</div>
+						</li>
+					</ul>
+				</li>
+				<li class="col-12 text-uppercase text-muted mt-5">
+					<div class="d-flex justify-content-between small">
+						<span>More Setting</span>
+					</div>
+				</li>
+				<li class="col-12">
+					<ul class="row g-2 list-unstyled li_animate gray-8 fs-6">
+						<li class="col-12">
+							<div class="form-check form-switch light-dark-toggle">
+								<input class="form-check-input" type="checkbox" role="switch" id="LightDark">
+								<label class="form-check-label" for="LightDark">Switch to Light/Dark</label>
+							</div>
+						</li>
+						<li class="col-12">
+							<div class="form-check form-switch monochrome-toggle">
+								<input class="form-check-input" type="checkbox" role="switch" id="monochrome">
+								<label class="form-check-label" for="monochrome">Monochrome Mode</label>
+							</div>
+						</li>
+						<li class="col-12">
+							<div class="form-check form-switch mini-sidebar">
+								<input class="form-check-input" type="checkbox" role="switch" id="mini-sidebar">
+								<label class="form-check-label" for="mini-sidebar">Mini Sidebar toggle</label>
+							</div>
+						</li>
+						<li class="col-12">
+							<div class="form-check form-switch gradient-active">
+								<input class="form-check-input" type="checkbox" role="switch" id="gradient-active">
+								<label class="form-check-label" for="gradient-active">Gradient Active</label>
+							</div>
+						</li>
+						<li class="col-12">
+							<div class="form-check form-switch radius-toggle">
+								<input class="form-check-input" type="checkbox" role="switch" id="radius0">
+								<label class="form-check-label" for="radius0">Border Radius none</label>
+							</div>
+						</li>
+						<li class="col-12">
+							<div class="form-check form-switch sidebar-dark">
+								<input class="form-check-input" type="checkbox" role="switch" id="sidebarDark">
+								<label class="form-check-label" for="sidebarDark">Enable Dark! ( Sidebar )</label>
+							</div>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	<div class="body-bg">
+		<svg class="img-fluid top-0" viewBox="0 0 1920 1080" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<g clip-path="url(#clip0_121_2)">
+				<g opacity="0.14" filter="url(#filter0_f_121_2)">
+					<circle cx="1840.5" cy="600.5" r="225.5" fill="var(--accent-color)" />
+				</g>
+				<g opacity="0.1" filter="url(#filter1_f_121_2)">
+					<circle cx="222.5" cy="118.5" r="327.5" fill="var(--primary-color)" />
+				</g>
+			</g>
+			<defs>
+				<filter id="filter0_f_121_2" x="1265" y="25" width="1151" height="1151" filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB">
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feGaussianBlur stdDeviation="175" result="effect1_foregroundBlur_121_2" />
+				</filter>
+				<filter id="filter1_f_121_2" x="-455" y="-559" width="1355" height="1355" filterUnits="userSpaceOnUse"
+					color-interpolation-filters="sRGB">
+					<feFlood flood-opacity="0" result="BackgroundImageFix" />
+					<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape" />
+					<feGaussianBlur stdDeviation="175" result="effect1_foregroundBlur_121_2" />
+				</filter>
+				<clipPath id="clip0_121_2">
+					<rect width="1920" height="1080" fill="white" />
+				</clipPath>
+			</defs>
+		</svg>
+		<svg width="260" height="350" viewBox="0 0 260 350" fill="none" xmlns="http://www.w3.org/2000/svg">
+			<path opacity="0.3" fill="#9e1309" d="M129.099 290.457H162.14H162.171L145.635 311.735L129.099 290.457Z" />
+			<path opacity="0.5" fill="var(--theme-color6)"
+				d="M288.197 279.48L260.585 314.994L233.004 279.48H288.197Z" />
+			<path opacity="0.7" fill="var(--theme-color6)"
+				d="M233.004 350.478H177.812L205.393 314.994L233.004 350.478Z" />
+			<path opacity="0.4" fill="#9e1309" d="M233.004 350.478L260.585 314.994L288.197 350.478H233.004Z" />
+			<path opacity="1" fill="#000100" d="M260.585 172.998L233.004 137.484H288.197L260.585 172.998Z" />
+			<path opacity=".8" fill="#9b140b"
+				d="M197.68 305.062L205.393 314.994H150.201L177.781 279.48L197.68 305.062Z" />
+			<path opacity="1" fill="var(--theme-color5)"
+				d="M225.479 269.583L233.192 279.514H178L205.581 244L225.479 269.583Z" />
+			<path opacity="1" fill="#000100" d="M233.004 279.48L205.393 243.996H260.585L233.004 279.48Z" />
+			<path opacity="1" fill="#9b140b" d="M232.611 350.484L205 315H260.192L232.611 350.484Z" />
+			<path opacity="0.5" fill="#9e1309" d="M202.524 203.07L212.087 190.74L221.682 203.07H202.524Z" />
+			<path opacity="1" fill="#9b140b" d="M218.412 129.551L233.467 110.179L248.522 129.551H218.412Z" />
+			<path opacity="0.3" fill="var(--theme-color6)"
+				d="M233.004 208.482H288.197L260.585 243.996L233.004 208.482Z" />
+			<path opacity="1" fill="#9b140b" d="M260.616 172.998L288.197 208.482H233.004L260.616 172.998Z" />
+			<path opacity="0.6" fill="#000100"
+				d="M185.494 289.411L177.781 279.48H232.974L205.393 314.994L185.494 289.411Z" />
+			<path opacity="1" fill="#000100" d="M224.489 204.577L241.056 225.885H207.923L224.489 204.577Z" />
+		</svg>
+	</div>
+	<script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
+	integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ=="
+	crossorigin=""></script>
+	<script type="text/javascript">
+		window._version_number = "{{ build_version }}";
+		// browser support
+		window.app = true;
+		window.dev_server = {{ dev_server }};
+
+		if (!window.frappe) window.frappe = {};
+
+		frappe.boot = JSON.parse({{ boot }});
+		frappe._messages = frappe.boot["__messages"];
+		frappe.csrf_token = "{{ csrf_token }}";
+	</script>
+	
+	{% include "public/icons/timeless/icons.svg" %}
+	{% include "templates/includes/splash_screen.html" %}
+	{% for include in include_js %}
+	{{ include_script(include) }}
+	{% endfor %}
+
+	{% include "templates/includes/app_analytics/google_analytics.html" %}
+	{% include "templates/includes/app_analytics/mixpanel_analytics.html" %}
+
+	{% for sound in (sounds or []) %}
+	<audio preload="auto" id="sound-{{ sound.name }}" volume={{ sound.volume or 1 }}>
+		<source src="{{ sound.src }}">
+		</source>
+	</audio>
+	{% endfor %}
+</body>
+
+<script>
+
+    // تغيير اللغة
+    function changeLanguage(event) {
+        event.preventDefault();
+        const currentLang = frappe.boot.user.language;
+        const newLang = currentLang === 'ar' ? 'en' : 'ar';
+
+        // عرض رسالة بوباب تشير إلى أن اللغة جارٍ تغييرها دون الحاجة إلى تأكيد
+        const popupMessage = currentLang === 'ar' ? 'جاري تغيير اللغة...' : 'Changing language...';
+        showToast(popupMessage);
+
+        frappe.call({
+            method: 'frappe.client.set_value',
+            args: {
+                doctype: 'User',
+                name: frappe.session.user,
+                fieldname: 'language',
+                value: newLang
+            },
+            callback: function(r) {
+                if (!r.exc) {
+                    location.reload(); // إعادة تحميل الصفحة لتطبيق اللغة الجديدة
+                }
+            }
+        });
+    }
+
+    // تحديث النص المعروض على الزر بناءً على اللغة الحالية
+    document.addEventListener('DOMContentLoaded', function() {
+        const currentLang = frappe.boot.user.language;
+        const languageSwitch = document.getElementById('languageSwitch');
+
+        if (currentLang === 'ar') {
+            languageSwitch.textContent = 'EN';
+        } else {
+            languageSwitch.textContent = 'عربي';
+        }
+    });
+
+    // دالة لعرض رسالة منبثقة صغيرة في منتصف الشاشة
+    function showToast(message) {
+        const toast = document.createElement('div');
+        toast.textContent = message;
+        toast.style.position = 'fixed';
+        toast.style.top = '50%';
+        toast.style.left = '50%';
+        toast.style.transform = 'translate(-50%, -50%)';
+        toast.style.backgroundColor = '#03045e'; // لون الخلفية
+        toast.style.color = '#fff'; // لون النص
+        toast.style.fontWeight = 'bold'; // جعل النص بولد
+        toast.style.padding = '10px 20px';
+        toast.style.borderRadius = '5px';
+        toast.style.zIndex = '1000';
+        toast.style.opacity = '0';
+        toast.style.transition = 'opacity 0.5s ease';
+
+        document.body.appendChild(toast);
+
+        // إظهار الرسالة
+        setTimeout(() => {
+            toast.style.opacity = '1';
+        }, 100);
+
+        // إخفاء الرسالة بعد 3 ثوانٍ
+        setTimeout(() => {
+            toast.style.opacity = '0';
+            setTimeout(() => {
+                toast.remove();
+            }, 500);
+        }, 3000);
+    }
+
+
+// استدعاء الدالة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', function() {
+    // التحقق فور تحميل الصفحة
+    checkForNewNotifications();
+
+    // التحقق كل 15 ثانية
+    setInterval(() => {
+        checkForNewNotifications();
+    }, 15000);
+});
+
+
+</script>
+
+
+
+
+
+
+
+
+</html>
