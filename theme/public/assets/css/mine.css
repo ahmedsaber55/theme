@@ -648,7 +648,7 @@ html[dir=rtl] {
         }
 
         .fixed-profile .card-body {
-            padding: 10px 10px !important;
+            padding: 18px 10px !important;
         }
 
     }
@@ -658,7 +658,7 @@ html[dir=rtl] {
     }
     
     .fixed-profile .card-body {
-        padding: 10px 10px !important;
+        padding: 18px 10px !important;
     }
 
 }
