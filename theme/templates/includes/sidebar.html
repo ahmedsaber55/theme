@@ -1,100 +1,79 @@
 <aside class="left-sidebar with-vertical">
-<div class="brand-logo d-flex gap-3 align-items-center justify-content-between">
+  <div class="brand-logo d-flex gap-3 align-items-center justify-content-between">
     <a href="/app">
-        <!-- Full-size logo for expanded sidebar -->
-        <img src="/assets/theme/images/logo.png" class="dark-logo full-logo" alt="Logo-Dark" />
-        <!-- Mini logo for collapsed sidebar -->
-        <img src="/assets/theme/images/mini-logo.png" class="dark-logo mini-logo" alt="Logo-Mini" />
+      <!-- Full-size logo for expanded sidebar -->
+      <img src="/assets/theme/images/logo.png" class="dark-logo full-logo" alt="Logo-Dark" />
+      <!-- Mini logo for collapsed sidebar -->
+      <img src="/assets/theme/images/mini-logo.png" class="dark-logo mini-logo" alt="Logo-Mini" />
     </a>
     <a href="javascript:void(0)" onclick="sidebartoggler()"
       class="sidebartoggler ms-auto text-decoration-none fs-5 d-block d-xl-none">
       <i class="ti ti-x"></i>
     </a>
-</div>
+  </div>
 
   <div class="scroll-sidebar" data-simplebar>
     <!-- Sidebar navigation-->
     <nav class="sidebar-nav sidebarnav">
       <div class="sidebar">
         <div class="container-fluid">
-          <!--[ sidebar:: menu list ]-->
           <div class="flex-grow-1">
-            <!--  mt-3 rounded-4 -->
-            <ul class="menu-list  layout-side-section-menu" id="accordionmainmenu">
+            <ul class="menu-list layout-side-section-menu" id="accordionmainmenu">
               {% for page in pages %}
               {% if page.is_hidden == 0 %}
               {% set jsoncontent = json.loads(page.content) %}
               <li class="collapsed sidebar-item">
                 <a class="m-link sidebar-link has-arrow success-hover-bg {{page.title}}"
-                  data-bs-parent="#accordionmainmenu" data-bs-toggle="collapse"
-                  data-bs-target="#item{{jsoncontent[0]['id']}}" href="{{page.title|lower}}" aria-expanded="false">
-                  <svg class="icon  icon-md">
+                   data-bs-parent="#accordionmainmenu" data-bs-toggle="collapse"
+                   data-bs-target="#item{{jsoncontent[0]['id']}}" href="{{ '/app/' + page.title|lower }}" aria-expanded="false">
+                  <svg class="icon icon-md">
                     <use class="" href="#icon-{{ page.icon }}"></use>
                   </svg>
                   <span class="mx-2 ps-1">{{ _(page.title) }}</span>
                   <span class="arrow fa fa-angle-down ms-auto text-end d-none hide"></span>
-
                 </a>
-
-                <ul class="sub-menu collapse " id="item{{jsoncontent[0]['id']}}">
-                  {% for card in page.cards["items"] %}
-                  {% endfor %}
+      
+                <ul class="sub-menu collapse" id="item{{jsoncontent[0]['id']}}">
                   {% for card in page.shortcuts["items"] %}
                   <li>
                     {% if card.type == 'URL' %}
                     <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link" href="/app{{card.url}}">
                       <div class=side-menu__link__title>{{ _(card.label) }}</div>
-                      <i class="stroke-[1] h-5 w-5 cursor-pointer side-menu__link__chevron" data-tw-merge=""
-                        data-lucide=chevron-down></i>
                     </a>
                     {% elif card.type == 'Page' %}
-                    <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link"
-                      href="/app/{{card.link_to}}">
+                    <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link" href="/app/{{card.link_to}}">
                       <div class=side-menu__link__title>{{ _(card.label) }}</div>
-                      <i class="stroke-[1] h-5 w-5 cursor-pointer side-menu__link__chevron" data-tw-merge=""
-                        data-lucide=chevron-down></i>
                     </a>
                     {% else %}
-
                     {% set doctype_slug = card.link_to.lower().replace(' ','-') %}
-                    {% if card.doc_view == 'List' %}
-                    {% set url = doctype_slug + '/view/list' %}
-                    {% elif card.doc_view == 'Tree' %}
-                    {% set url = doctype_slug + '/view/tree' %}
-                    {% elif card.doc_view == 'Report Builder' %}
-                    {% set url = doctype_slug + '/view/report' %}
-                    {% elif card.doc_view == 'Dashboard' %}
-                    {% set url = doctype_slug + '/view/dashboard' %}
-                    {% elif card.doc_view == 'New' %}
-                    {% set url = doctype_slug + '/new' %}
-                    {% elif card.doc_view == 'Calendar' %}
-                    {% set url = doctype_slug + '/view/calendar/default' %}
-                    {% elif card.doc_view == 'Kanban' %}
-                    {% set url = doctype_slug + '/view/kanban' %}
-                    {% else %}
                     {% set url = doctype_slug %}
-                    {% endif %}
-
-
+                    {% if doctype_slug in ['general-ledger', 'accounts-receivable', 'trial-balance'] %}
+                    <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link"
+                       href="/app/query-report/{{ doctype_slug|replace('-', ' ')|title|replace(' ', '%20') }}">
+                      <div class=side-menu__link__title>{{ _(card.label) }}</div>
+                    </a>
+                    {% elif doctype_slug in ['accounts', 'loan-dashboard'] %}
+                    <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link"
+                       href="/app/dashboard-view/{{ doctype_slug|replace('-', ' ')|title|replace(' ', '%20') }}">
+                      <div class=side-menu__link__title>{{ _(card.label) }}</div>
+                    </a>
+                    {% else %}
                     <a class="ms-link desk-sidebar-item standard-sidebar-item side-menu__link" href="/app/{{url}}">
                       <div class=side-menu__link__title>{{ _(card.label) }}</div>
-                      <i class="stroke-[1] h-5 w-5 cursor-pointer side-menu__link__chevron" data-tw-merge=""
-                        data-lucide=chevron-down></i>
                     </a>
+                    {% endif %}
                     {% endif %}
                   </li>
                   {% endfor %}
                 </ul>
               </li>
-
-
               {% endif %}
               {% endfor %}
             </ul>
-
           </div>
         </div>
       </div>
+      
     </nav>
     <!-- End Sidebar navigation -->
   </div>

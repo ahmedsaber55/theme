@@ -168,7 +168,7 @@
 
     .bg-primary-subtle {
         background-color: rgb(255 255 255 / 10%) !important;
-        border-radius: 18px;
+        /* border-radius: 18px; */
     }
 
     .fs-8 {
@@ -564,6 +564,18 @@ html[dir=rtl] {
         margin-top: 6px;
     }
 
+
+    .bg-primary-subtle {
+        background-color: var(--bs-primary-bg-subtle) !important;
+        border-radius: 0px 0px 18px 18px;
+    }
+
+    .m-3 {
+        margin: 8px !important;
+    }
+
+
+
 }
 
 /* Small screens (max-width: 425px) */
@@ -598,16 +610,57 @@ html[dir=rtl] {
 
     html[dir=rtl] .topbar {
         width: 100%;
-        margin-right: auto; /* Center align topbar */
+        margin-right: auto;
+        /* Center align topbar */
     }
 }
 
 /* Larger screens (between 1025px and 1440px) */
 @media (min-width: 1025px) and (max-width: 1440px) {
-    html[dir=rtl][data-layout=vertical] #main-wrapper .page-wrapper {
-        margin-right: 186px;
-        margin-left: 0;
+    html[dir=rtl][data-layout=vertical] {
+        #main-wrapper .page-wrapper {
+            margin-right: 132px;
+            margin-left: 0;
+        }
+
+        .content-page-container .container {
+            max-width: 100%;
+            padding: 0;
+        }
+
+        .topbar {
+            width: 88.5%;
+            margin-right: auto;
+        }
+
+        .content-page-container .page-head .page-head-content {
+            height: unset;
+            max-width: 95%;
+            margin-right: auto;
+        }
+
+        body[data-sidebartype="mini-sidebar"] {
+            .content-page-container .page-head .page-head-content {
+                height: unset;
+                max-width: 100%;
+                margin-right: auto;
+            }
+        }
+
+        .fixed-profile .card-body {
+            padding: 10px 10px !important;
+        }
+
     }
+
+    .m-3 {
+        margin: 8px !important;
+    }
+    
+    .fixed-profile .card-body {
+        padding: 10px 10px !important;
+    }
+
 }
 
 /* Extra large screens (above 1440px) */
@@ -630,7 +683,7 @@ html[dir=rtl] {
 
     .fixed-profile .card-body {
         background-color: var(--bs-primary-bg-subtle) !important;
-    border-radius: 18px;
+        /* border-radius: 18px; */
     }
 
     .m-3 {
@@ -639,7 +692,7 @@ html[dir=rtl] {
 
     .bg-primary-subtle {
         background-color: rgba(0, 60, 255, 0.1) !important;
-        border-radius: 18px;
+        /* border-radius: 18px; */
     }
 
     .fs-8 {
@@ -662,24 +715,51 @@ html[dir=rtl] {
 
 
 
-[data-bs-theme=light]:root .btn.btn-default, [data-bs-theme=dark]:root .btn.btn-default {
+[data-bs-theme=light]:root .btn.btn-default,
+[data-bs-theme=dark]:root .btn.btn-default {
     background-color: #ffffff;
     border: 1px solid #1370ed6b;
     border-style: dotted;
     color: black;
 }
 
-[data-bs-theme=light][data-color-theme=Blue_Theme]:root .btn.btn-secondary, .add-filter.btn.btn-xs.text-muted, [data-bs-theme=dark][data-color-theme=Blue_Theme]:root .btn.btn-secondary, .btn.btn-primary {
+[data-bs-theme=light][data-color-theme=Blue_Theme]:root .btn.btn-secondary,
+.add-filter.btn.btn-xs.text-muted,
+[data-bs-theme=dark][data-color-theme=Blue_Theme]:root .btn.btn-secondary,
+.btn.btn-primary {
     background-color: #091057 !important;
     border-color: #ffffffd4 !important;
     border-style: solid;
     color: #ffffff;
 }
 
-[data-bs-theme=light]:root .btn.btn-default, [data-bs-theme=dark]:root .btn.btn-default {
+[data-bs-theme=light]:root .btn.btn-default,
+[data-bs-theme=dark]:root .btn.btn-default {
     background-color: #ffffff;
     border-color: #1370ED;
     color: black;
 }
 
 
+html[dir="rtl"] [data-layout=vertical] body[data-sidebartype=mini-sidebar] {
+    .fixed-profile .card-body {
+        padding: 16px 16px !important;
+    }
+}
+
+
+.bg-primary-subtle {
+    background-color: var(--bs-primary-bg-subtle) !important;
+    border-radius: 0px 0px 18px 18px;
+}
+
+/* content height */
+[data-page-route=Workspaces] .layout-main {
+    height: calc(100vh - var(--navbar-height) - var(--page-head-height) - 5px);
+    height: 100%;
+}
+
+/* draft */
+.indicator-pill.red, .indicator-pill-right.red, .indicator-pill-round.red {
+    background: #fb977d;
+}
